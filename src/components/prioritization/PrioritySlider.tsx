@@ -54,7 +54,7 @@ export default function PrioritySlider({ initialPriorities, onUpdatePriorities }
             { criteria: 'Maximize Fulfillment', weight: 90, field: 'fulfillment', priority: 1 },
             { criteria: 'Minimize Cost', weight: 30, field: 'cost', priority: 2 },
             { criteria: 'Fair Distribution', weight: 50, field: 'distribution', priority: 3 },
-          ])}>
+          ])}> 
             Maximize Fulfillment
           </Button>
           <Button variant="secondary" onClick={() => onUpdatePriorities([
