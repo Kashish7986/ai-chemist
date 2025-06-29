@@ -375,5 +375,5 @@ export const validateTasksData = (tasks: Task[]): ValidationError[] => {
       });
     }
   });
-  return errors;
+  return errors;  // finally
 };
