@@ -1,0 +1,2 @@
+WorkerID,WorkerName,Skills,AvailableSlots,MaxLoadPerPhase,WorkerGroup,QualificationLevel
+W1,John,skillA;skillB,[1,2,3],2,Group1,5

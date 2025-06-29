@@ -1,0 +1,2 @@
+ClientID,ClientName,PriorityLevel,RequestedTaskIDs,GroupTag,AttributesJSON
+C1,Alice,3,T1;T2,GroupA,"{""location"": ""NY""}"
