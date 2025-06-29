@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { callAI } from '@/lib/ai/aiService';
-import { Rule, ValidationError, Client, Worker, Task} from '@/types/index';
+import { Rule, ValidationError, Client, Worker, Task } from '@/types/index';
 
 export const runtime = 'edge';
 
@@ -9,6 +9,11 @@ interface RuleSuggestion {
   type: Rule['type'];
   description: string;
   config: Rule['config'];
+  name: string; // Added name
+  action: string; // Added action
+  condition: string; // Added condition
+  fields: string[]; // Added fields
+  value: string; // Added value
 }
 
 interface CorrectionSuggestion {
@@ -125,7 +130,13 @@ export async function POST(req: NextRequest) {
           ...rule,
           id: `suggestion-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
           source: 'aiSuggestion',
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
+          // Ensure all required properties are included
+          name: rule.name || 'Default Name', // Provide a default name if missing
+          action: rule.action || 'Default Action', // Provide a default action if missing
+          condition: rule.condition || 'Default Condition', // Provide a default condition if missing
+          fields: rule.fields || [], // Provide a default empty array if missing
+          value: rule.value || 'Default Value', // Provide a default value if missing
         }));
 
         return NextResponse.json(suggestions);
@@ -142,7 +153,8 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({
           query,
-          results: [] as string[],
+          results: [] as string[],   // Trigger redeploy
+
           generatedQuery: ''
         });
       }
@@ -161,6 +173,7 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
 
 
 

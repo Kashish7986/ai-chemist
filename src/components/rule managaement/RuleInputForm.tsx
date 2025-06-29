@@ -14,12 +14,13 @@ export default function RuleInputForm({ onAddRule }: RuleInputFormProps) {
   const [condition, setCondition] = useState('');
   const [action, setAction] = useState('');
   const [description, setDescription] = useState('');
+  const [value, setValue] = useState(''); // New state for value
+  const [fields, setFields] = useState<string[]>([]); // New state for fields
 
   // State for 'type' if you want to allow user selection, otherwise use a default
   const [ruleType, setRuleType] = useState<Rule['type']>('custom'); // Default to 'custom'
 
-  // For 'config', it's often an empty object or a specific structure based on 'type'
-  // For simplicity, we'll use an empty object for now, but you might expand this later
+  // For 'config', initialize as an empty object or a specific structure based on 'type'
   const [config, setConfig] = useState<RuleConfig>({}); // Initialize as an empty object
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -40,6 +41,8 @@ export default function RuleInputForm({ onAddRule }: RuleInputFormProps) {
       config: config, // Use the state variable for config
       source: 'manual', // Default to 'manual' as it's added via form
       createdAt: new Date().toISOString(), // Generate current timestamp
+      value: value.trim(), // Include value
+      fields: fields, // Include fields
     };
 
     onAddRule(newRule);
@@ -49,6 +52,8 @@ export default function RuleInputForm({ onAddRule }: RuleInputFormProps) {
     setCondition('');
     setAction('');
     setDescription('');
+    setValue(''); // Reset value
+    setFields([]); // Reset fields
     setRuleType('custom'); // Reset type to default
     setConfig({}); // Reset config
   };
@@ -126,6 +131,34 @@ export default function RuleInputForm({ onAddRule }: RuleInputFormProps) {
         <p className="mt-1 text-xs text-gray-500">
           Specify the action to take when the condition is met.
         </p>
+      </div>
+
+      <div>
+        <label htmlFor="ruleValue" className="block text-sm font-medium text-gray-700 mb-1">
+          Value (Optional):
+        </label>
+        <input
+          type="text"
+          id="ruleValue"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="e.g., High"
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="ruleFields" className="block text-sm font-medium text-gray-700 mb-1">
+          Fields (Optional, comma-separated):
+        </label>
+        <input
+          type="text"
+          id="ruleFields"
+          value={fields.join(',')}
+          onChange={(e) => setFields(e.target.value.split(',').map(field => field.trim()))}
+          placeholder="e.g., ClientID, WorkerID"
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+        />
       </div>
 
       <div>

@@ -74,17 +74,26 @@ export type RuleConfig =
   | LoadLimitConfig 
   | PhaseWindowConfig;
 // Update the Rule type to use the new RuleConfig type
+export type AiSuggestion = {
+  id: string;
+  source: 'aiSuggestion';
+  createdAt: string;
+  type: 'coRun' | 'slotRestriction' | 'loadLimit' | 'phaseWindow';
+};
+
 export type Rule = {
   id: string;
   name: string; // Name of the rule
   action: string; // Action to take when the rule is applied
-  type: 'coRun' | 'slotRestriction' | 'loadLimit' | 'phaseWindow' | 'patternMatch' | 'precedenceOverride' | 'custom';
+  type?: 'coRun' | 'slotRestriction' | 'loadLimit' | 'phaseWindow' | 'patternMatch' | 'precedenceOverride' | 'custom';
   description: string; // User-friendly description
   config: RuleConfig; // Use the specific RuleConfig type
-  source: 'manual' | 'nlp' | 'aiSuggestion';
-   createdAt: string; // Ensure this is included
+  source?: 'manual' | 'nlp' | 'aiSuggestion';
+   createdAt?: string; // Ensure this is included
    condition: string; // Optional conditions for the rule
-  source: 'manual' | 'nlp' | 'aiSuggestion'; // Ensure this matches your usage
+  source?: 'manual' | 'nlp' | 'aiSuggestion'; // Ensure this matches your usage
+  fields: string[]; // Optional fields to apply the rule to
+  value: string ; // Optional value to apply the rule
 };
 
 
