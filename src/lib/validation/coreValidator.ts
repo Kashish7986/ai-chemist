@@ -193,6 +193,8 @@ const checkRequiredColumns = <T extends Record<string, unknown>>(
       id: 'N/A',
       message: `Missing required column(s) for ${entityName}: ${missingCols.join(', ')}`,
       type: 'error',
+      row: 0, // Set a default row number
+      column: 'N/A' // Set a default column name
     });
   }
   return errors;
@@ -222,6 +224,8 @@ const checkDuplicateIDs = <T extends Record<string, unknown>>(
       id: 'N/A',
       message: `Duplicate ${idField} found in ${entityName}: ${Array.from(duplicates).join(', ')}`,
       type: 'error',
+      row: 0, // Set a default row number
+      column: idField // Set the column name to the ID field
     });
   }
   return errors;
@@ -244,6 +248,8 @@ export const validateClientsData = (clients: Client[]): ValidationError[] => {
         field: 'PriorityLevel',
         message: 'PriorityLevel must be an integer between 1 and 5.',
         type: 'error',
+        row: index + 1, // Set the row number
+        column: 'PriorityLevel' // Set the column name
       });
     }
 
@@ -257,6 +263,8 @@ export const validateClientsData = (clients: Client[]): ValidationError[] => {
           field: 'AttributesJSON',
           message: 'AttributesJSON is not a valid JSON string.',
           type: 'error',
+          row: index + 1, // Set the row number
+          column: 'AttributesJSON' // Set the column name
         });
       }
     }
@@ -286,6 +294,8 @@ export const validateWorkersData = (workers: Worker[]): ValidationError[] => {
           field: 'AvailableSlots',
           message: 'AvailableSlots must be a valid JSON array of numbers (e.g., [1,3,5]).',
           type: 'error',
+          row: index + 1, // Set the row number
+          column: 'AvailableSlots' // Set the column name
         });
       }
     }
@@ -298,6 +308,8 @@ export const validateWorkersData = (workers: Worker[]): ValidationError[] => {
         field: 'MaxLoadPerPhase',
         message: 'MaxLoadPerPhase must be a positive integer.',
         type: 'error',
+        row: index + 1, // Set the row number
+        column: 'MaxLoadPerPhase' // Set the column name
       });
     }
   });
@@ -321,6 +333,8 @@ export const validateTasksData = (tasks: Task[]): ValidationError[] => {
         field: 'Duration',
         message: 'Duration must be a positive integer.',
         type: 'error',
+        row: index + 1, // Set the row number
+        column: 'Duration' // Set the column name
       });
     }
 
@@ -341,6 +355,8 @@ export const validateTasksData = (tasks: Task[]): ValidationError[] => {
             field: 'PreferredPhases',
             message: 'PreferredPhases must be a range (e.g., "1-3") or a JSON array of numbers (e.g., "[2,4,5]").',
             type: 'error',
+            row: index + 1, // Set the row number
+            column: 'PreferredPhases' // Set the column name
           });
         }
       }
@@ -354,6 +370,8 @@ export const validateTasksData = (tasks: Task[]): ValidationError[] => {
         field: 'MaxConcurrent',
         message: 'MaxConcurrent must be a positive integer.',
         type: 'error',
+        row: index + 1, // Set the row number
+        column: 'MaxConcurrent' // Set the column name
       });
     }
   });
