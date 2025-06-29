@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import Input from '@/components/common/Input';
 import { PrioritySetting } from '@/types';
@@ -32,7 +30,7 @@ export default function PrioritySlider({ initialPriorities, onUpdatePriorities }
 
       <div className="space-y-4">
         {priorities.map((p, index) => (
-          <div key={p.criteria} className="flex items-center space-x-4">
+          <div key={`${p.criteria}-${index}`} className="flex items-center space-x-4">
             <label className="w-1/3 text-gray-700 font-medium">{p.criteria}</label>
             <div className="w-2/3 flex items-center space-x-2">
               <Input
@@ -53,23 +51,23 @@ export default function PrioritySlider({ initialPriorities, onUpdatePriorities }
         <h4 className="text-lg font-medium mb-2">Preset Profiles</h4>
         <div className="flex space-x-3">
           <Button variant="secondary" onClick={() => onUpdatePriorities([
-            { criteria: 'Maximize Fulfillment', weight: 90 },
-            { criteria: 'Minimize Cost', weight: 30 },
-            { criteria: 'Fair Distribution', weight: 50 },
+            { criteria: 'Maximize Fulfillment', weight: 90, field: 'fulfillment', priority: 1 },
+            { criteria: 'Minimize Cost', weight: 30, field: 'cost', priority: 2 },
+            { criteria: 'Fair Distribution', weight: 50, field: 'distribution', priority: 3 },
           ])}>
             Maximize Fulfillment
           </Button>
           <Button variant="secondary" onClick={() => onUpdatePriorities([
-            { criteria: 'Maximize Fulfillment', weight: 50 },
-            { criteria: 'Minimize Cost', weight: 90 },
-            { criteria: 'Fair Distribution', weight: 30 },
+            { criteria: 'Maximize Fulfillment', weight: 50, field: 'fulfillment', priority: 1 },
+            { criteria: 'Minimize Cost', weight: 90, field: 'cost', priority: 2 },
+            { criteria: 'Fair Distribution', weight: 30, field: 'distribution', priority: 3 },
           ])}>
             Minimize Cost
           </Button>
           <Button variant="secondary" onClick={() => onUpdatePriorities([
-            { criteria: 'Maximize Fulfillment', weight: 50 },
-            { criteria: 'Minimize Cost', weight: 50 },
-            { criteria: 'Fair Distribution', weight: 90 },
+            { criteria: 'Maximize Fulfillment', weight: 50, field: 'fulfillment', priority: 1 },
+            { criteria: 'Minimize Cost', weight: 50, field: 'cost', priority: 2 },
+            { criteria: 'Fair Distribution', weight: 90, field: 'distribution', priority: 3 },
           ])}>
             Fair Distribution
           </Button>
@@ -78,4 +76,3 @@ export default function PrioritySlider({ initialPriorities, onUpdatePriorities }
     </div>
   );
 }
-
