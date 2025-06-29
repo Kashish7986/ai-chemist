@@ -20,6 +20,8 @@ export const validateCrossReferences = (
           field: 'RequestedTaskIDs',
           message: `Requested Task ID '${reqId}' does not exist in tasks data.`,
           type: 'error',
+          row: 0, // Set a default row number
+          column: 'RequestedTaskIDs' // Set the column name
         });
       }
     });
@@ -35,6 +37,8 @@ export const validateCrossReferences = (
           field: 'RequiredSkills',
           message: `Required skill '${reqSkill}' for this task is not covered by any worker.`,
           type: 'error',
+          row: 0, // Set a default row number
+          column: 'RequiredSkills' // Set the column name
         });
       }
     });
